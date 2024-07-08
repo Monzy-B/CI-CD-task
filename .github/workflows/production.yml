@@ -32,13 +32,13 @@ jobs:
         env:
           GITHUB_SHA: ${{ github.sha }}
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ github.sha }} .
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${GITHUB_SHA::3} .
           
       - name: Push to Dockerhub
         env:
           GITHUB_SHA: ${{ github.sha }}
         if: github.ref == 'refs/heads/feature/**' || github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/tm-dev' && (github.event.pull_request.merged == true || github.event_name == 'push')
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ github.sha }} 
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${GITHUB_SHA::3} 
 
 #  Deploy:
 #      runs-on: ubuntu-latest
