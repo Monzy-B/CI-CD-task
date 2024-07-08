@@ -1,4 +1,4 @@
-name: Building and testing Docker image
+name: Building and testing the Docker image
 on:
  push:
     branches:
